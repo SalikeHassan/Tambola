@@ -1,0 +1,43 @@
+# Ignore build outputs
+bin/
+obj/
+*.dll
+*.exe
+*.log
+*.pdb
+*.cache
+*.ide
+*.suo
+*.user
+*.userosscache
+*.sln.docstates
+
+# Ignore generated files
+*.vs/
+.vscode/
+*.dbmdl
+*.jfm
+
+# Ignore Rider/JetBrains files
+.idea/
+*.sln.iml
+
+# Ignore build artifacts
+!wwwroot/*
+*.vspscc
+
+# Ignore NuGet packages
+*.nupkg
+packages/
+project.lock.json
+project.fragment.lock.json
+artifacts/
+
+# Ignore configuration
+appsettings.Development.json
+appsettings.Local.json
+appsettings.Staging.json
+
+# Ignore OS-specific files
+.DS_Store
+Thumbs.db
