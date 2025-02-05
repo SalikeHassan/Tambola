@@ -1,8 +1,9 @@
+using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Domain;
 
 namespace Tambola.Api.src.Application.Commands;
 
-public class ClaimCommand : ICommand<SubmitClaimResult>  
+public class ClaimCommand : ICommand<Result<ClaimResponse>>  
 {
     public string PlayerId { get; set; }
     public int?[][] TicketNumbers { get; set; }

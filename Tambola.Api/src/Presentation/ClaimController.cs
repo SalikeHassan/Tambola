@@ -16,7 +16,7 @@ public class ClaimController : ControllerBase
         this.mediator = mediator;
     }
 
-    [HttpPost("validate")]
+    [HttpPost()]
     public async Task<IActionResult> ValidateClaim([FromBody] ClaimCommand command)
     {
         if (command == null)
@@ -26,7 +26,6 @@ public class ClaimController : ControllerBase
 
         try
         {
-            // Send the command to MediatR
             var result = await mediator.Send(command);
 
             if (result.IsSuccess)
@@ -34,7 +33,7 @@ public class ClaimController : ControllerBase
                 return Ok(new
                 {
                     success = true,
-                    message = result.Message
+                    message = result.Value?.Message
                 });
             }
             else
@@ -42,13 +41,12 @@ public class ClaimController : ControllerBase
                 return BadRequest(new
                 {
                     success = false,
-                    message = result.Message
+                    message = result.ErrorMessage
                 });
             }
         }
         catch (Exception ex)
         {
-            // Handle unexpected errors
             return StatusCode(500, new
             {
                 success = false,

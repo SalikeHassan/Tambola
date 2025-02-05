@@ -1,9 +1,10 @@
 using MediatR;
+using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Application.Services;
 
 namespace Tambola.Api.src.Application.Commands;
 
-public class ClaimCommandHandler : IRequestHandler<ClaimCommand, SubmitClaimResult>
+public class ClaimCommandHandler : IRequestHandler<ClaimCommand, Result<ClaimResponse>>
 {
     private readonly IClaimTrackerService claimTrackerService;
 
@@ -12,13 +13,13 @@ public class ClaimCommandHandler : IRequestHandler<ClaimCommand, SubmitClaimResu
         this.claimTrackerService = claimTrackerService;
     }
 
-    public async Task<SubmitClaimResult> Handle(ClaimCommand command, CancellationToken cancellationToken)
+    public async Task<Result<ClaimResponse>> Handle(ClaimCommand command, CancellationToken cancellationToken)
     {
         if (!claimTrackerService.RegisterClaim(command.ClaimType, command.PlayerId))
         {
-            return new SubmitClaimResult(false, "Rejected: Duplicate claim.");
+            return ClaimResponse.Lost("Rejected");
         }
 
-        return new SubmitClaimResult(true, "Accepted: You are a winner!");
+        return ClaimResponse.Winner("Accepted");
     }
 }

@@ -1,12 +1,13 @@
 using MediatR;
 using Tambola.Api.src.Application.Commands;
+using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Domain;
 
 namespace Tambola.Api.src.Application.Behaviors;
 
 public class TicketValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRequest, TResponse>
     where TRequest : ClaimCommand
-    where TResponse : SubmitClaimResult
+    where TResponse : Result<ClaimResponse>
 {
     public async Task<TResponse> Handle(TRequest request, RequestHandlerDelegate<TResponse> next, CancellationToken cancellationToken)
     {
@@ -16,7 +17,7 @@ public class TicketValidationBehavior<TRequest, TResponse> : IPipelineBehavior<T
         }
         catch (ArgumentException ex)
         {
-            return (TResponse)(object)new SubmitClaimResult(false, $"Invalid ticket: {ex.Message}");
+            return Result<ClaimResponse>.Fail($"Invalid ticket: {ex.Message}") as TResponse;
         }
 
         return await next();
