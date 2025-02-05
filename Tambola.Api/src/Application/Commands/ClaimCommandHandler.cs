@@ -1,57 +1,24 @@
-using System.Collections.Concurrent;
-using Tambola.Api.src.Application.Validators;
-using Tambola.Api.src.Domain;
+using MediatR;
+using Tambola.Api.src.Application.Services;
 
 namespace Tambola.Api.src.Application.Commands;
 
-public class ClaimCommandHandler : ICommandHandler<ClaimCommand, SubmitClaimResult>
+public class ClaimCommandHandler : IRequestHandler<ClaimCommand, SubmitClaimResult>
 {
-    private static readonly ConcurrentDictionary<GameType, List<string>> AcceptedClaims = new();
-    private static readonly object lockObj = new();
+    private readonly IClaimTrackerService claimTrackerService;
 
-    private readonly IClaimValidator _claimValidator;
-
-    public ClaimCommandHandler(IClaimValidator claimValidator)
+    public ClaimCommandHandler(IClaimTrackerService claimTrackerService)
     {
-        _claimValidator = claimValidator;
+        this.claimTrackerService = claimTrackerService;
     }
 
     public async Task<SubmitClaimResult> Handle(ClaimCommand command, CancellationToken cancellationToken)
     {
-        // Validate the ticket format
-        Ticket ticket;
-        try
+        if (!claimTrackerService.RegisterClaim(command.ClaimType, command.PlayerId))
         {
-            ticket = Ticket.Create(command.TicketNumbers);
-        }
-        catch (ArgumentException ex)
-        {
-            return new SubmitClaimResult(false, $"Invalid ticket: {ex.Message}");
+            return new SubmitClaimResult(false, "Rejected: Duplicate claim.");
         }
 
-        // Validate the claim using the game-specific strategy
-        bool isWinning = _claimValidator.ValidateClaim(ticket, command.AnnouncedNumbers, command.ClaimType);
-
-        if (!isWinning)
-        {
-            return new SubmitClaimResult(false, "Rejected: Claim is not valid.");
-        }
-
-        lock (lockObj)
-        {
-            if (AcceptedClaims.TryGetValue(command.ClaimType, out var winners))
-            {
-                if (winners.Contains(command.PlayerId))
-                {
-                    return new SubmitClaimResult(false, "Rejected: You have already claimed this game.");
-                }
-
-                winners.Add(command.PlayerId);
-                return new SubmitClaimResult(true, "Accepted: You are a winner!");
-            }
-
-            AcceptedClaims.TryAdd(command.ClaimType, new List<string> { command.PlayerId });
-            return new SubmitClaimResult(true, "Accepted: You are a winner!");
-        }
+        return new SubmitClaimResult(true, "Accepted: You are a winner!");
     }
 }

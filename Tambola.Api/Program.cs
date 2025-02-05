@@ -1,4 +1,7 @@
+using MediatR;
 using Microsoft.AspNetCore.Mvc;
+using Tambola.Api.src.Application.Behaviors;
+using Tambola.Api.src.Application.Services;
 using Tambola.Api.src.Application.Strategies;
 using Tambola.Api.src.Application.Strategies.Factory;
 using Tambola.Api.src.Application.Validators;
@@ -16,9 +19,15 @@ builder.Services.AddTransient<IGameStrategy,EarlyFiveStrategy>();
 // Register the factory with the strategies injected
 builder.Services.AddSingleton<IGameStrategyFactory,GameStrategyFactory>();
 
+builder.Services.AddScoped<IClaimTrackerService,ClaimTrackerService>();
+builder.Services.AddScoped<IClaimValidationService,ClaimValidationService>();
 builder.Services.AddScoped<IClaimValidator, ClaimValidator>();
 
 builder.Services.AddMediatR(cfg => cfg.RegisterServicesFromAssemblyContaining<Program>());
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(TicketValidationBehavior<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(DuplicateClaimBehavior<,>));
+builder.Services.AddTransient(typeof(IPipelineBehavior<,>), typeof(GameValidationBehavior<,>));
+
 builder.Services.AddControllers()
     .AddJsonOptions(options =>
     {
