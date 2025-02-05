@@ -22,26 +22,23 @@ jobs:
         with:
           dotnet-version: '9.0'
 
-      - name: Install SonarScanner
-        run: dotnet tool install --global dotnet-sonarscanner
-
       - name: Install dependencies
         run: dotnet restore Tambola.sln
 
-      - name: Run SonarCloud Analysis Begin
+      - name: Build the project
+        run: dotnet build Tambola.sln --configuration Release --no-restore
+
+      - name: Run Unit Tests
+        run: dotnet test Tambola.sln --logger trx --results-directory TestResults
+
+      - name: Install SonarScanner
+        run: dotnet tool install --global dotnet-sonarscanner
+
+      - name: Run SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
-          dotnet sonarscanner begin /k:"SalikeHassan_Tambola" /o:"$SONAR_ORG" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.token="$SONAR_TOKEN"
-
-      - name: Build the project
-        run: dotnet build Tambola.sln --configuration Release
-
-      - name: Run Tests
-        run: dotnet test --logger trx --results-directory TestResults
-
-      - name: Run SonarCloud Analysis End
-        env:
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
+          dotnet sonarscanner begin /k:"SalikeHassan_Tambola" /o:"$SONAR_ORG" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.token="$SONAR_TOKEN" /d:sonar.cs.opencover.reportsPaths=TestResults/*.trx
+          dotnet build Tambola.sln --configuration Release
+          dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
