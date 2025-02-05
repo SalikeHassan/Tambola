@@ -20,7 +20,7 @@ public class DuplicateClaimBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
     {
         if (this.claimTrackerService.HasPlayerAlreadyClaimed(request.ClaimType, request.PlayerId))
         {
-            return Result<ClaimResponse>.Fail("You have already claimed this game.") as TResponse;
+            return (TResponse)Result<ClaimResponse>.Fail("You have already claimed this game.");
         }
 
         return await next();

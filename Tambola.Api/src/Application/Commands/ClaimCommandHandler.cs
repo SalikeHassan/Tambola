@@ -13,13 +13,13 @@ public class ClaimCommandHandler : IRequestHandler<ClaimCommand, Result<ClaimRes
         this.claimTrackerService = claimTrackerService;
     }
 
-    public async Task<Result<ClaimResponse>> Handle(ClaimCommand command, CancellationToken cancellationToken)
+    public Task<Result<ClaimResponse>> Handle(ClaimCommand command, CancellationToken cancellationToken)
     {
         if (!claimTrackerService.RegisterClaim(command.ClaimType, command.PlayerId))
         {
-            return ClaimResponse.Lost("Rejected");
+            return Task.FromResult(ClaimResponse.Lost("Rejected"));
         }
 
-        return ClaimResponse.Winner("Accepted");
+        return Task.FromResult(ClaimResponse.Winner("Accepted"));
     }
 }

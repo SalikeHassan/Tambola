@@ -5,8 +5,8 @@ namespace Tambola.Api.src.Application.Commands;
 
 public class ClaimCommand : ICommand<Result<ClaimResponse>>  
 {
-    public string PlayerId { get; set; }
-    public int?[][] TicketNumbers { get; set; }
-    public List<int> AnnouncedNumbers { get; set; }
-    public GameType ClaimType { get; set; }
+    public required string PlayerId { get; set; }
+    public required int?[][] TicketNumbers { get; set; }
+    public required List<int> AnnouncedNumbers { get; set; }
+    public required GameType ClaimType { get; set; }
 }
