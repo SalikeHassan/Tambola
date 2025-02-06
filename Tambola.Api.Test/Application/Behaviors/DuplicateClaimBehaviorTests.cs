@@ -2,13 +2,12 @@ using System.Collections.Generic;
 using FakeItEasy;
 using Shouldly;
 using MediatR;
+using Xunit;
 using Tambola.Api.src.Application.Behaviors;
 using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Application.Services;
 using Tambola.Api.src.Application.Commands;
 using Tambola.Api.src.Domain;
-using Tambola.Api.src.Application.Common;
-using Xunit;
 
 namespace Tambola.Api.Test.Behaviors;
 

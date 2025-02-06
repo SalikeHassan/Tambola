@@ -3,7 +3,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using FakeItEasy;
 using MediatR;
-using Microsoft.AspNetCore.Http; // Required for StatusCodes
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Shouldly;
 using Xunit;
@@ -74,7 +74,7 @@ public class ClaimControllerTests
             ClaimType = GameType.TopLine
         };
 
-        var failureResult = Result<ClaimResponse>.Fail("Claim rejected", StatusCodes.Status400BadRequest);
+        var failureResult = Result<ClaimResponse>.Fail(Constants.RejectedErrMsg, StatusCodes.Status400BadRequest);
 
         A.CallTo(() => mediator.Send(command, A<CancellationToken>._))
             .Returns(failureResult);
