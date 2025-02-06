@@ -1,0 +1,200 @@
+{
+	"info": {
+		"_postman_id": "58a1781c-4239-4519-acaa-c55f8c0b21b7",
+		"name": "Tambola",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "18103078"
+	},
+	"item": [
+		{
+			"name": "Success | ClaimType: TopLine",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"f3f3f1e0-7e47-4f6c-9a51-71e3f379b862\",\n    \"TicketNumbers\": [\n        [4, 16, null, null, 48, null, 63, 76, null],\n        [7, null, 23, 38, null, 52, null, null, 80],\n        [9, null, 25, null, null, 56, 64, null, 83]\n    ],\n    \"AnnouncedNumbers\": [4, 16, 48, 63, 76], \n    \"ClaimType\": \"TopLine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim",
+				"description": "POST Success Request For ClaimType TopLine"
+			},
+			"response": []
+		},
+		{
+			"name": "Success | ClaimType: MiddleLine",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"fc56eaa1-93b5-4a5b-8542-83c5db11a152\",\n    \"TicketNumbers\": [\n        [null, 12, 25, null, 44, null, null, 79, null],\n        [10, null, 23, 36, 49, null, 68, null, 81],\n        [null, 17, null, 39, null, 53, null, null, 85]\n    ],\n    \"AnnouncedNumbers\": [10, 23, 36, 49, 68, 81],\n    \"ClaimType\": \"MiddleLine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Success | ClaimType: BottomLine",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"9b65930c-273e-4a9a-8d5f-b9657c21b687\",\n    \"TicketNumbers\": [\n        [null, 14, null, 30, null, null, 61, 77, null],\n        [8, 18, null, null, 42, 55, null, null, 88],\n        [3, null, 22, 34, null, null, null, 70, 90]\n    ],\n    \"AnnouncedNumbers\": [3, 22, 34, 70, 90],\n    \"ClaimType\": \"BottomLine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Success | ClaimType: FullHouse",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"d8bb36c1-00f7-41bb-a5fa-1ed98b654ed1\",\n    \"TicketNumbers\": [\n        [4, 16, null, null, 48, null, 63, 76, null],\n        [7, null, 23, 38, null, 52, null, null, 80],\n        [9, null, 25, null, null, 56, 64, null, 83]\n    ],\n    \"AnnouncedNumbers\": [4, 16, 48, 63, 76, 7, 23, 38, 52, 80, 9, 25, 56, 64, 83], \n    \"ClaimType\": \"FullHouse\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Success | ClaimType: EarlyFive",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"83f7c1d4-6b6c-4fa9-bf34-939fd66c5fdc\",\n    \"TicketNumbers\": [\n        [6, 14, null, 28, null, 49, 65, 78, null],\n        [8, null, 26, 39, 50, null, null, 82, 89],\n        [null, 19, 27, 42, null, null, null, 73, 91]\n    ],\n    \"AnnouncedNumbers\": [6, 14, 28, 49, 65], \n    \"ClaimType\": \"EarlyFive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Rejected | ClaimType: TopLine",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"68bb9212-7c0a-4782-bb83-f2370c8377e4\",\n    \"TicketNumbers\": [\n        [4, 16, null, null, 48, null, 63, 76, null],\n        [7, null, 23, 38, null, 52, null, null, 80],\n        [9, null, 25, null, null, 56, 64, null, 83]\n    ],\n    \"AnnouncedNumbers\": [4, 16, 63, 76], \n    \"ClaimType\": \"TopLine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Rejected | ClaimType: FullHouse",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"d7815b27-017f-4ff1-a5b5-67efc6211421\",\n    \"TicketNumbers\": [\n        [3, 13, null, 26, 42, null, 67, null, 90],\n        [9, null, 24, null, 45, null, null, 85, 92],\n        [null, 17, 29, null, null, 55, 71, 78, null]\n    ],\n    \"AnnouncedNumbers\": [3, 13, 26, 42, 67, 90], \n    \"ClaimType\": \"FullHouse\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Rejected | ClaimType: MiddleLine",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"c1ff9d7e-8b34-4e79-b11e-b640c1264a62\",\n    \"TicketNumbers\": [\n        [5, 11, 24, null, 49, null, 69, 75, null],\n        [null, null, 22, 38, null, 53, null, null, 82],\n        [10, null, 26, 42, 57, 60, null, null, 89]\n    ],\n    \"AnnouncedNumbers\": [1, 2, 3, 4, 5], \n    \"ClaimType\": \"MiddleLine\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		},
+		{
+			"name": "Rejected | ClaimType: EarlyFive",
+			"request": {
+				"auth": {
+					"type": "noauth"
+				},
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"PlayerId\": \"d7815b27-017f-4ff1-a5b5-67efc6211425\",\n    \"TicketNumbers\": [\n        [6, 12, null, 27, null, 50, 65, 74, null],\n        [9, null, 23, 40, 51, null, null, 83, 90],\n        [null, 16, 28, 43, null, null, null, 77, 92]\n    ],\n    \"AnnouncedNumbers\": [100, 200, 300, 500, 650], \n    \"ClaimType\": \"EarlyFive\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
+				"url": "http://localhost:5004/api/v1.0/claim"
+			},
+			"response": []
+		}
+	]
+}
