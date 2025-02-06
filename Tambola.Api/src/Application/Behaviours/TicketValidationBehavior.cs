@@ -17,7 +17,7 @@ public class TicketValidationBehavior<TRequest, TResponse> : IPipelineBehavior<T
         }
         catch (ArgumentException ex)
         {
-            return (TResponse)Result<ClaimResponse>.Fail($"Invalid ticket: {ex.Message}");
+            return (TResponse)Result<ClaimResponse>.Fail($"Invalid ticket: {ex.Message}",StatusCodes.Status400BadRequest);
         }
 
         return await next();

@@ -1,0 +1,93 @@
+using System.Collections.Generic;
+using Shouldly;
+using Tambola.Api.src.Application.Services;
+using Tambola.Api.src.Domain;
+using Xunit;
+using Xunit.Abstractions;
+using Xunit.Sdk;
+
+namespace Tambola.Api.Test.Application.Services;
+
+[TestCaseOrderer("Tambola.Api.Test.Application.Services.AlphabeticalOrderer", "Tambola.Api.Test")]
+public class ClaimTrackerServiceTests
+{
+    private readonly IClaimTrackerService claimTrackerService;
+
+    public ClaimTrackerServiceTests()
+    {
+        claimTrackerService = new ClaimTrackerService();
+    }
+
+    [Fact, TestPriority(1)]
+    public void RegisterClaim_ShouldReturnTrue_WhenClaimIsRegisteredSuccessfully()
+    {
+        // Act
+        var result = claimTrackerService.RegisterClaim(GameType.TopLine, "Player1");
+
+        // Assert
+        result.ShouldBeTrue();
+    }
+
+    [Fact, TestPriority(2)]
+    public void RegisterClaim_ShouldReturnFalse_WhenPlayerHasAlreadyClaimed()
+    {
+        // Arrange
+        claimTrackerService.RegisterClaim(GameType.TopLine, "Player1");
+
+        // Act
+        var result = claimTrackerService.RegisterClaim(GameType.TopLine, "Player1");
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+
+    [Fact, TestPriority(3)]
+    public void HasPlayerAlreadyClaimed_ShouldReturnTrue_WhenPlayerHasAlreadyClaimed()
+    {
+        // Arrange
+        claimTrackerService.RegisterClaim(GameType.TopLine, "Player1");
+
+        // Act
+        var result = claimTrackerService.HasPlayerAlreadyClaimed(GameType.TopLine, "Player1");
+
+        // Assert
+        result.ShouldBeTrue();
+    }
+
+    [Fact, TestPriority(4)]
+    public void HasPlayerAlreadyClaimed_ShouldReturnFalse_WhenPlayerHasNotClaimed()
+    {
+        // Act
+        var result = claimTrackerService.HasPlayerAlreadyClaimed(GameType.TopLine, "Player2");
+
+        // Assert
+        result.ShouldBeFalse();
+    }
+}
+
+/// <summary>
+/// Custom attribute to define test priority.
+/// </summary>
+public class TestPriorityAttribute : Attribute
+{
+    public int Priority { get; }
+    public TestPriorityAttribute(int priority) => Priority = priority;
+}
+
+/// <summary>
+/// Custom TestCaseOrderer for ordering test execution based on priority.
+/// </summary>
+public class AlphabeticalOrderer : ITestCaseOrderer
+{
+    public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases)
+        where TTestCase : ITestCase
+    {
+        var sortedTests = testCases.OrderBy(test =>
+        {
+            var priorityAttr = test.TestMethod.Method.GetCustomAttributes(typeof(TestPriorityAttribute).AssemblyQualifiedName).FirstOrDefault();
+            return priorityAttr == null ? 0 : priorityAttr.GetNamedArgument<int>("Priority");
+        });
+
+        return sortedTests;
+    }
+}

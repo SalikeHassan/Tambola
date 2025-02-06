@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc;
 using MediatR;
 using Tambola.Api.src.Application.Commands;
+using Tambola.Api.src.Application.Common;
 
 namespace Tambola.Api.src.Presentation.Controllers;
 
@@ -16,42 +17,24 @@ public class ClaimController : ControllerBase
         this.mediator = mediator;
     }
 
-    [HttpPost()]
+    [HttpPost]
     public async Task<IActionResult> ValidateClaim([FromBody] ClaimCommand command)
     {
         if (command == null)
         {
-            return BadRequest("Invalid request. ClaimCommand cannot be null.");
+            return BadRequest(Result<string>.Fail("Invalid request. ClaimCommand cannot be null.", StatusCodes.Status400BadRequest));
         }
 
         try
         {
             var result = await mediator.Send(command);
 
-            if (result.IsSuccess)
-            {
-                return Ok(new
-                {
-                    success = true,
-                    message = result.Value?.Message
-                });
-            }
-            else
-            {
-                return BadRequest(new
-                {
-                    success = false,
-                    message = result.ErrorMessage
-                });
-            }
+            return StatusCode(result.StatusCode, result);
         }
         catch (Exception ex)
         {
-            return StatusCode(500, new
-            {
-                success = false,
-                message = $"An unexpected error occurred: {ex.Message}"
-            });
+            return StatusCode(StatusCodes.Status500InternalServerError, 
+                Result<string>.Fail($"An unexpected error occurred: {ex.Message}", StatusCodes.Status500InternalServerError));
         }
     }
 }

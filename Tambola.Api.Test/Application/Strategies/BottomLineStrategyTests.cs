@@ -2,7 +2,7 @@ using Shouldly;
 using Tambola.Api.src.Application.Strategies;
 using Tambola.Api.src.Domain;
 using Xunit;
-namespace Tambola.Api.Test.Application.Strategies.Tests;
+namespace Tambola.Api.Test.Application.Strategies;
 
 public class BottomLineStrategyTests
 {

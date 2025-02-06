@@ -24,7 +24,7 @@ public class GameValidationBehavior<TRequest, TResponse> : IPipelineBehavior<TRe
 
         if (!isWinning)
         {
-            return (TResponse)Result<ClaimResponse>.Fail("Rejected");
+            return (TResponse)Result<ClaimResponse>.Fail("Rejected",StatusCodes.Status400BadRequest);
         }
 
         return await next();

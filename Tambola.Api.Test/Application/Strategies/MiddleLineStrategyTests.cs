@@ -3,19 +3,19 @@ using Tambola.Api.src.Application.Strategies;
 using Tambola.Api.src.Domain;
 using Xunit;
 
-namespace Tambola.Api.Test.Application.Strategies.Tests;
+namespace Tambola.Api.Test.Application.Strategies;
 
-public class FullHouseStrategyTests
+public class MiddleLineStrategyTests
 {
-    private readonly FullHouseStrategy strategy;
+    private readonly MiddleLineStrategy strategy;
 
-    public FullHouseStrategyTests()
+    public MiddleLineStrategyTests()
     {
-        strategy = new FullHouseStrategy();
+        strategy = new MiddleLineStrategy();
     }
 
     [Fact]
-    public void IsWinningCondition_AllNumbersAnnounced_ShouldReturnTrue()
+    public void IsWinningCondition_AllNumbersInMiddleLineAnnounced_ShouldReturnTrue()
     {
         // Arrange
         var ticket = Ticket.Create(new int?[][]
@@ -24,7 +24,7 @@ public class FullHouseStrategyTests
             new int?[] { 7, null, 23, 38, null, 52, null, null, 80 },
             new int?[] { 9, null, 25, null, null, 56, 64, null, 83 }
         });
-        var announcedNumbers = new List<int> { 4, 16, 48, 63, 76, 7, 23, 38, 52, 80, 9, 25, 56, 64, 83 };
+        var announcedNumbers = new List<int> { 7, 23, 38, 52, 80 };
 
         // Act
         var result = strategy.IsWinningCondition(ticket, announcedNumbers);
@@ -34,7 +34,7 @@ public class FullHouseStrategyTests
     }
 
     [Fact]
-    public void IsWinningCondition_NotAllNumbersAnnounced_ShouldReturnFalse()
+    public void IsWinningCondition_NotAllNumbersInMiddleLineAnnounced_ShouldReturnFalse()
     {
         // Arrange
         var ticket = Ticket.Create(new int?[][]
@@ -43,7 +43,7 @@ public class FullHouseStrategyTests
             new int?[] { 7, null, 23, 38, null, 52, null, null, 80 },
             new int?[] { 9, null, 25, null, null, 56, 64, null, 83 }
         });
-        var announcedNumbers = new List<int> { 4, 16, 48, 63, 76, 7, 23, 38, 52, 80, 9, 25, 56, 64 };
+        var announcedNumbers = new List<int> { 7, 23, 38, 52 };
 
         // Act
         var result = strategy.IsWinningCondition(ticket, announcedNumbers);
