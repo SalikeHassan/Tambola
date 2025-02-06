@@ -83,7 +83,7 @@ public class ClaimControllerTests
         var response = await controller.ValidateClaim(command);
 
         // Assert
-        response.ShouldBeOfType<BadRequestObjectResult>(); // Since it contains a value
+        response.ShouldBeOfType<ObjectResult>(); // Since it contains a value
         var badRequestResult = response as ObjectResult;
         badRequestResult?.StatusCode.ShouldBe(StatusCodes.Status400BadRequest);
         badRequestResult?.Value.ShouldBe(failureResult);
