@@ -31,9 +31,6 @@ jobs:
       - name: Run Unit Tests
         run: dotnet test Tambola.sln --logger trx --results-directory TestResults /p:CollectCoverage=true /p:CoverletOutputFormat=cobertura
 
-      - name: List Test Results
-        run: ls -R TestResults
-
       - name: Install SonarScanner
         run: dotnet tool install --global dotnet-sonarscanner
 
