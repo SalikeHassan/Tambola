@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using FakeItEasy;
 using Shouldly;
 using Tambola.Api.src.Application.Validators;
-using Tambola.Api.src.Application.Strategies.Factory;
 using Tambola.Api.src.Domain;
 using Xunit;
 using Tambola.Api.src.Application.Strategies.Factory;
