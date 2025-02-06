@@ -25,20 +25,23 @@ jobs:
       - name: Install dependencies
         run: dotnet restore Tambola.sln
 
-      - name: Build the project
-        run: dotnet build Tambola.sln --configuration Release --no-restore
+      - name: Install Coverlet
+        run: dotnet tool install --global coverlet.console
 
-      - name: Run Unit Tests
-        run: dotnet test Tambola.sln --logger trx --results-directory TestResults
+      - name: Run Unit Tests with Coverage
+        run: dotnet test Tambola.sln --collect:"XPlat Code Coverage" --results-directory TestResults
 
-      - name: Install SonarScanner
-        run: dotnet tool install --global dotnet-sonarscanner
+      - name: Convert Coverage Report to Cobertura
+        run: reportgenerator -reports:TestResults/**/coverage.cobertura.xml -targetdir:TestResults/CoverageReport
 
       - name: Run SonarCloud Analysis
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
           SONAR_ORG: ${{ secrets.SONAR_ORG }}
         run: |
-          dotnet sonarscanner begin /k:"SalikeHassan_Tambola" /o:"$SONAR_ORG" /d:sonar.host.url="https://sonarcloud.io" /d:sonar.token="$SONAR_TOKEN" /d:sonar.cs.opencover.reportsPaths=TestResults/*.trx
+          dotnet sonarscanner begin /k:"SalikeHassan_Tambola" /o:"$SONAR_ORG" /d:sonar.host.url="https://sonarcloud.io" \
+            /d:sonar.token="$SONAR_TOKEN" \
+            /d:sonar.cs.vscoveragexml.reportsPaths=TestResults/**/coverage.cobertura.xml
+          
           dotnet build Tambola.sln --configuration Release
           dotnet sonarscanner end /d:sonar.token="$SONAR_TOKEN"
