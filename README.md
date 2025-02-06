@@ -1,5 +1,5 @@
 # Tambola Claim Validator
-A Restful API for managing Tambola game claim validation.
+A Restful API for Tambola game claim validation.
 
 ## Table of Contents
 - [Prerequisites](#prerequisites)
