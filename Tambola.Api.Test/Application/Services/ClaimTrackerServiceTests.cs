@@ -1,10 +1,10 @@
 using System.Collections.Generic;
 using Shouldly;
-using Tambola.Api.src.Application.Services;
-using Tambola.Api.src.Domain;
 using Xunit;
 using Xunit.Abstractions;
 using Xunit.Sdk;
+using Tambola.Api.src.Application.Services;
+using Tambola.Api.src.Domain;
 
 namespace Tambola.Api.Test.Application.Services;
 
@@ -65,18 +65,12 @@ public class ClaimTrackerServiceTests
     }
 }
 
-/// <summary>
-/// Custom attribute to define test priority.
-/// </summary>
 public class TestPriorityAttribute : Attribute
 {
     public int Priority { get; }
     public TestPriorityAttribute(int priority) => Priority = priority;
 }
 
-/// <summary>
-/// Custom TestCaseOrderer for ordering test execution based on priority.
-/// </summary>
 public class AlphabeticalOrderer : ITestCaseOrderer
 {
     public IEnumerable<TTestCase> OrderTestCases<TTestCase>(IEnumerable<TTestCase> testCases)

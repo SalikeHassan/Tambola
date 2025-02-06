@@ -51,7 +51,7 @@ public class ClaimControllerTests
         var response = await controller.ValidateClaim(command);
 
         // Assert
-        response.ShouldBeOfType<ObjectResult>(); // Since it contains a value
+        response.ShouldBeOfType<ObjectResult>();
         var okResult = response as ObjectResult;
         okResult?.StatusCode.ShouldBe(StatusCodes.Status200OK);
         okResult?.Value.ShouldBe(successResult);
@@ -83,7 +83,7 @@ public class ClaimControllerTests
         var response = await controller.ValidateClaim(command);
 
         // Assert
-        response.ShouldBeOfType<ObjectResult>(); // Since it contains a value
+        response.ShouldBeOfType<ObjectResult>();
         var badRequestResult = response as ObjectResult;
         badRequestResult?.StatusCode.ShouldBe(StatusCodes.Status400BadRequest);
         badRequestResult?.Value.ShouldBe(failureResult);
@@ -126,7 +126,7 @@ public class ClaimControllerTests
         var response = await controller.ValidateClaim(command);
 
         // Assert
-        response.ShouldBeOfType<ObjectResult>(); // Since it contains a value
+        response.ShouldBeOfType<ObjectResult>();
         var errorResult = response as ObjectResult;
         errorResult?.StatusCode.ShouldBe(StatusCodes.Status500InternalServerError);
         errorResult?.Value.ShouldBe(Result<string>.Fail("An unexpected error occurred: Unexpected error", StatusCodes.Status500InternalServerError));

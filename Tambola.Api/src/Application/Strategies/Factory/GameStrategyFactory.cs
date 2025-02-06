@@ -1,4 +1,4 @@
-using Microsoft.AspNetCore.OutputCaching;
+using Tambola.Api.src.Application.Common; 
 using Tambola.Api.src.Domain;
 
 namespace Tambola.Api.src.Application.Strategies.Factory;
@@ -14,6 +14,6 @@ public class GameStrategyFactory : IGameStrategyFactory
     public IGameStrategy Create(GameType gameType)
     {
         var strategy = strategies.FirstOrDefault(s => s.Key == gameType);
-        return strategy ?? throw new ArgumentException("Invalid notification type");
+        return strategy ?? throw new ArgumentException(Constants.InvalidGameTypeErrMsg);
     }
 }

@@ -1,9 +1,10 @@
 using FakeItEasy;
 using Shouldly;
+using Xunit;
 using Tambola.Api.src.Application.Services;
 using Tambola.Api.src.Application.Validators;
 using Tambola.Api.src.Domain;
-using Xunit;
+
 namespace Tambola.Api.Test.Application.Services;
 
 public class ClaimValidationServiceTests
