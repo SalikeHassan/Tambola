@@ -28,7 +28,7 @@ public class DuplicateClaimBehaviorTests
         // Arrange
         var request = new ClaimCommand
         {
-            PlayerId = "Player1",
+            PlayerId = Guid.NewGuid(),
             ClaimType = GameType.TopLine,
             TicketNumbers = new int?[][]
             {
@@ -55,7 +55,7 @@ public class DuplicateClaimBehaviorTests
         // Arrange
         var request = new ClaimCommand
         {
-            PlayerId = "Player1",
+            PlayerId = Guid.NewGuid(),
             ClaimType = GameType.TopLine,
             TicketNumbers = new int?[][]
             {

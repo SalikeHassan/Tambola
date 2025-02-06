@@ -31,7 +31,7 @@ public class ClaimControllerTests
         // Arrange
         var command = new ClaimCommand
         {
-            PlayerId = "Player1",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },
@@ -42,7 +42,7 @@ public class ClaimControllerTests
             ClaimType = GameType.TopLine
         };
 
-        var successResult = Result<ClaimResponse>.Success(new ClaimResponse(true, "Claim accepted"), StatusCodes.Status200OK);
+        var successResult = Result<ClaimResponse>.Success(new ClaimResponse(true, "Accepted"), StatusCodes.Status200OK);
 
         A.CallTo(() => mediator.Send(command, A<CancellationToken>._))
             .Returns(successResult);
@@ -63,7 +63,7 @@ public class ClaimControllerTests
         // Arrange
         var command = new ClaimCommand
         {
-            PlayerId = "Player1",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },
@@ -108,7 +108,7 @@ public class ClaimControllerTests
         // Arrange
         var command = new ClaimCommand
         {
-            PlayerId = "Player1",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },

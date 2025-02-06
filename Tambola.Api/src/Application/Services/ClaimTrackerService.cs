@@ -5,15 +5,15 @@ namespace Tambola.Api.src.Application.Services;
 
 public class ClaimTrackerService : IClaimTrackerService
 {
-    private static readonly ConcurrentDictionary<GameType, List<string>> claims = new();
+    private static readonly ConcurrentDictionary<GameType, List<Guid>> claims = new();
     private static readonly object lockObj = new();
 
-    public bool HasPlayerAlreadyClaimed(GameType gameType, string playerId)
+    public bool HasPlayerAlreadyClaimed(GameType gameType, Guid playerId)
     {
         return claims.TryGetValue(gameType, out var winners) && winners.Contains(playerId);
     }
 
-    public bool RegisterClaim(GameType gameType, string playerId)
+    public bool RegisterClaim(GameType gameType, Guid playerId)
     {
         lock (lockObj)
         {
@@ -27,7 +27,7 @@ public class ClaimTrackerService : IClaimTrackerService
             }
             else
             {
-                claims.TryAdd(gameType, new List<string> { playerId });
+                claims.TryAdd(gameType, new List<Guid> { playerId });
             }
         }
         return true;

@@ -25,7 +25,7 @@ public class TicketValidationBehaviorTests
         // Arrange
         var request = new ClaimCommand
         {
-            PlayerId = "Player123",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },
@@ -50,7 +50,7 @@ public class TicketValidationBehaviorTests
         // Arrange
         var request = new ClaimCommand
         {
-            PlayerId = "Player123",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },

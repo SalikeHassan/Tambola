@@ -12,6 +12,7 @@ using Tambola.Api.src.Application.Commands;
 using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Application.Services;
 using Tambola.Api.src.Domain;
+using Tambola.Api.src.Application.Common;
 
 namespace Tambola.Api.Test.Application.Behaviors;
 
@@ -32,7 +33,7 @@ public class GameValidationBehaviorTests
         // Arrange
         var request = new ClaimCommand
         {
-            PlayerId = "Player123",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },
@@ -58,7 +59,7 @@ public class GameValidationBehaviorTests
         // Arrange
         var request = new ClaimCommand
         {
-            PlayerId = "Player123",
+            PlayerId = Guid.NewGuid(),
             TicketNumbers = new int?[][]
             {
                 new int?[] { 4, 16, null, null, 48, null, 63, 76, null },
@@ -75,6 +76,6 @@ public class GameValidationBehaviorTests
 
         // Assert
         result.IsSuccess.ShouldBeFalse();
-        result.ErrorMessage.ShouldBe("Rejected");
+        result.ErrorMessage.ShouldBe(Constants.RejectedErrMsg);
     }
 }
