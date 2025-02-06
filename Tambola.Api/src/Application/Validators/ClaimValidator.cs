@@ -1,3 +1,4 @@
+using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Application.Strategies.Factory;
 using Tambola.Api.src.Domain;
 
@@ -17,7 +18,7 @@ public class ClaimValidator : IClaimValidator
 
         if (strategy == null)
         {
-            throw new ArgumentException("Invalid game type.");
+            throw new ArgumentException(Constants.InvalidGameTypeErrMsg);
         }
 
         bool isWinningNow = strategy.IsWinningCondition(ticket, announcedNumbers);

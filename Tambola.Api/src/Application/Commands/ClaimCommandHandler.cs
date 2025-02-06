@@ -17,9 +17,9 @@ public class ClaimCommandHandler : IRequestHandler<ClaimCommand, Result<ClaimRes
     {
         if (!claimTrackerService.RegisterClaim(command.ClaimType, command.PlayerId))
         {
-            return Task.FromResult(ClaimResponse.Lost("Rejected"));
+            return Task.FromResult(ClaimResponse.Lost(Constants.RejectedErrMsg));
         }
 
-        return Task.FromResult(ClaimResponse.Winner("Accepted"));
+        return Task.FromResult(ClaimResponse.Winner(Constants.AcceptedMsg));
     }
 }

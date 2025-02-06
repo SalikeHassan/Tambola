@@ -7,6 +7,7 @@ using Tambola.Api.src.Application.Common;
 using Tambola.Api.src.Application.Services;
 using Tambola.Api.src.Application.Commands;
 using Tambola.Api.src.Domain;
+using Tambola.Api.src.Application.Common;
 using Xunit;
 
 namespace Tambola.Api.Test.Behaviors;
@@ -75,6 +76,6 @@ public class DuplicateClaimBehaviorTests
 
         // Assert
         result.IsSuccess.ShouldBeFalse();
-        result.ErrorMessage.ShouldBe("You have already claimed this game.");
+        result.ErrorMessage.ShouldBe(Constants.DuplicateClaimErrMsg);
     }
 }
